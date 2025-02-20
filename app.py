@@ -73,7 +73,7 @@ def generate_quiz():
         strategy='smart'
     )
     
-    print(response_pdf)
+    # print(response_pdf)
 
     num_q = data.get("num_q", "5")
     unit_num = data.get("unit_num", "1")
