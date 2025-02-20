@@ -96,8 +96,8 @@ def generate_quiz():
     
     # print(response_pdf)
 
-    num_q = data.get("num_q", "5")
-    unit_num = data.get("unit_num", "1")
+    # num_q = data.get("num_q", "5")
+    # unit_num = data.get("unit_num", "1")
     
     query = f'Give me a multiple choice question quiz based on the given unit that is ' \
             f'delimited by triple astriks ***{unit_num}*** to test the students on their knowledge after learning. ' \
@@ -125,6 +125,9 @@ def generate_quiz():
     )
     
     print(json.dumps(response, indent=4, ensure_ascii=False))
+
+    session["unit_num"] = None
+    session["num_q"] = None
     return jsonify(response)
 
     
