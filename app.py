@@ -122,11 +122,17 @@ def generate_quiz():
     #                    'If not, reprompt the unit number. '
     #                    'Answer in a format of question, 4 answer choices. After all questions, '
     #                    'give the key. In the key explain each answer like a helpful tutor, assuming no previous knowledge.')
-    query = f'Answer the given question delimited in triple astriks. Answer based on the file,' \
+    query = f'If the message delimited in triple astriks is not a question, '
+            f'ask the chatter to ask a question regarding the Grade 6 Math Scope and Sequence Outline. '\
+            f' '
+            f'Answer the given question delimited in triple astriks. Answer based on the file,' \
             f'and then synthesize to give possible solutions and idea brainstorming.'\
             f'***{message}***'
 
-    system_constant = ('Act as a helpful teaching assistant that will give detailed '
+    system_constant = ('Evaluate if the message is a question. '
+                       'If not, prompt the user in a friendly manner to ask a question '
+                       'regarding the Grade 6 Math Scope and Sequence Outline.'
+                       'Act as a helpful teaching assistant that will give detailed '
                        'information on the question based on the uploaded file.')
 
 
