@@ -64,6 +64,27 @@ def main():
 @app.route('/generate_quiz', methods=['POST'])
 def generate_quiz():
     data = request.get_json()
+
+    user_input = data.get("message", "").strip().lower()
+
+    # Initialize session variables if not set
+    if "unit_num" not in session:
+        session["unit_num"] = None
+    if "num_q" not in session:
+        session["num_q"] = None
+
+    # Step 1: Ask for unit number if not provided
+    if session["unit_num"] is None:
+        session["unit_num"] = user_input
+        return jsonify({"response": "How many questions?"})
+
+    # Step 2: Ask for number of questions if not provided
+    if session["num_q"] is None:
+        if not user_input.isdigit():  # Validate input
+            return jsonify({"response": "Please enter a valid number for questions."})
+        session["num_q"] = user_input
+
+
     pdf_path = data.get("pdf_path", "unit.pdf")
     session_id = data.get("session_id", "bridgette-rag-test")
     
