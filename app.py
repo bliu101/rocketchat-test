@@ -1,6 +1,11 @@
+# import requests
+# from flask import Flask, request, jsonify
+# from llmproxy import generate
+
 import requests
+import json
 from flask import Flask, request, jsonify
-from llmproxy import generate
+from llmproxy import generate, pdf_upload
 
 app = Flask(__name__)
 
@@ -41,8 +46,23 @@ def main():
 
     return jsonify({"text": response_text})
 
-@app.route('/upload_pdf', methods=['POST'])
-def upload_pdf():
+# @app.route('/upload_pdf', methods=['POST'])
+# def upload_pdf():
+#     data = request.get_json()
+#     pdf_path = data.get("pdf_path", "unit.pdf")
+#     session_id = data.get("session_id", "bridgette-rag-test")
+    
+#     response_pdf = pdf_upload(
+#         path=pdf_path,
+#         session_id=session_id,
+#         strategy='smart'
+#     )
+    
+#     print(response_pdf)
+#     return jsonify(response_pdf)
+
+@app.route('/generate_quiz', methods=['POST'])
+def generate_quiz():
     data = request.get_json()
     pdf_path = data.get("pdf_path", "unit.pdf")
     session_id = data.get("session_id", "bridgette-rag-test")
@@ -56,8 +76,6 @@ def upload_pdf():
     print(response_pdf)
     return jsonify(response_pdf)
 
-@app.route('/generate_quiz', methods=['POST'])
-def generate_quiz():
     data = request.get_json()
     num_q = data.get("num_q", "5")
     unit_num = data.get("unit_num", "1")
