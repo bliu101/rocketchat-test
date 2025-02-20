@@ -66,7 +66,14 @@ def generate_quiz():
     data = request.get_json()
 
     # user_input = data.get("message", "").strip().lower()
+    user = data.get("user_name", "Unknown")
     message = data.get("text", "")
+
+    # Ignore bot messages
+    if data.get("bot") or not message:
+        return jsonify({"status": "ignored"})
+
+    print(f"Message from {user} : {message}")
 
     # Initialize session variables if not set
     # if "unit_num" not in session:
@@ -125,11 +132,13 @@ def generate_quiz():
         rag_k=4
     )
     
-    print(json.dumps(response, indent=4, ensure_ascii=False))
+    response_text = response['response']
+    print(response_text)
+    # print(json.dumps(response, indent=4, ensure_ascii=False))
 
-    session["unit_num"] = None
-    session["num_q"] = None
-    return jsonify(response)
+    # session["unit_num"] = None
+    # session["num_q"] = None
+    return jsonify({"text": response_text})
 
     
 @app.errorhandler(404)
