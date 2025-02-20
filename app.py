@@ -107,9 +107,9 @@ def generate_quiz():
     # num_q = data.get("num_q", "5")
     # unit_num = data.get("unit_num", "1")
     
-    # query = f'Give me a multiple choice question quiz based on the given unit that is ' \
-    #         f'delimited by triple astriks ***{unit_num}*** to test the students on their knowledge after learning. ' \
-    #         f'The number of questions is delimited by triple quotes """{num_q}""" '
+    query = f'Give me a multiple choice question quiz based on the given unit that is ' \
+            f'delimited by triple astriks ***{unit_num}*** to test the students on their knowledge after learning. ' \
+            f'The number of questions is delimited by triple quotes """{num_q}""" '
     
     # system_constant = ('Evaluate if the number of questions is a valid number. '
     #                    'If not, reprompt the number of questions. '
@@ -117,14 +117,12 @@ def generate_quiz():
     #                    'If not, reprompt the unit number. '
     #                    'Answer in a format of question, 4 answer choices. After all questions, '
     #                    'give the key. In the key explain each answer like a helpful tutor, assuming no previous knowledge.')
-    query = ('Answer the given question delimited in triple astriks. Answer based on the file, 
-             'and then synthesize to give possible solutions and idea brainstorming'
-             '***{message}***'
-    )
+    query = f'Answer the given question delimited in triple astriks. Answer based on the file,' \
+            f'and then synthesize to give possible solutions and idea brainstorming.'\
+            f'***{message}***'
 
     system_constant = ('Act as a helpful teaching assistant that will give detailed '
-                       'information on the question based on the uploaded file'
-    )
+                       'information on the question based on the uploaded file.')
 
 
 
