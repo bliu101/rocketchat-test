@@ -65,24 +65,25 @@ def main():
 def generate_quiz():
     data = request.get_json()
 
-    user_input = data.get("message", "").strip().lower()
+    # user_input = data.get("message", "").strip().lower()
+    message = data.get("text", "")
 
     # Initialize session variables if not set
-    if "unit_num" not in session:
-        session["unit_num"] = None
-    if "num_q" not in session:
-        session["num_q"] = None
+    # if "unit_num" not in session:
+    #     session["unit_num"] = None
+    # if "num_q" not in session:
+    #     session["num_q"] = None
 
-    # Step 1: Ask for unit number if not provided
-    if session["unit_num"] is None:
-        session["unit_num"] = user_input
-        return jsonify({"response": "How many questions?"})
+    # # Step 1: Ask for unit number if not provided
+    # if session["unit_num"] is None:
+    #     session["unit_num"] = user_input
+    #     return jsonify({"response": "How many questions?"})
 
-    # Step 2: Ask for number of questions if not provided
-    if session["num_q"] is None:
-        if not user_input.isdigit():  # Validate input
-            return jsonify({"response": "Please enter a valid number for questions."})
-        session["num_q"] = user_input
+    # # Step 2: Ask for number of questions if not provided
+    # if session["num_q"] is None:
+    #     if not user_input.isdigit():  # Validate input
+    #         return jsonify({"response": "Please enter a valid number for questions."})
+    #     session["num_q"] = user_input
 
 
     pdf_path = data.get("pdf_path", "unit.pdf")
