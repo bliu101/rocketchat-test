@@ -93,13 +93,18 @@ def generate_quiz():
     #     session["num_q"] = user_input
 
 
-    pdf_path = data.get("pdf_path", "unit.pdf")
-    session_id = data.get("session_id", "bridgette-rag-test")
+    # pdf_path = data.get("pdf_path", "unit.pdf")
+    # session_id = data.get("session_id", "bridgette-rag-test")
     
+    # response_pdf = pdf_upload(
+    #     path=pdf_path,
+    #     session_id=session_id,
+    #     strategy='smart'
+    # )
     response_pdf = pdf_upload(
-        path=pdf_path,
-        session_id=session_id,
-        strategy='smart'
+        path = 'unit.pdf',
+        session_id = 'bridgette-rag-test',
+        strategy = 'smart'
     )
     
     # print(response_pdf)
