@@ -74,9 +74,7 @@ def generate_quiz():
     )
     
     print(response_pdf)
-    return jsonify(response_pdf)
 
-    data = request.get_json()
     num_q = data.get("num_q", "5")
     unit_num = data.get("unit_num", "1")
     
