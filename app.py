@@ -107,9 +107,9 @@ def generate_quiz():
     # num_q = data.get("num_q", "5")
     # unit_num = data.get("unit_num", "1")
     
-    query = f'Give me a multiple choice question quiz based on the given unit that is ' \
-            f'delimited by triple astriks ***{unit_num}*** to test the students on their knowledge after learning. ' \
-            f'The number of questions is delimited by triple quotes """{num_q}""" '
+    # query = f'Give me a multiple choice question quiz based on the given unit that is ' \
+    #         f'delimited by triple astriks ***{unit_num}*** to test the students on their knowledge after learning. ' \
+    #         f'The number of questions is delimited by triple quotes """{num_q}""" '
     
     # system_constant = ('Evaluate if the number of questions is a valid number. '
     #                    'If not, reprompt the number of questions. '
