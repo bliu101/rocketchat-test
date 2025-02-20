@@ -128,9 +128,9 @@ def generate_quiz():
             f'and then synthesize to give possible solutions and idea brainstorming.'\
             f'***{message}***'
 
-    system_constant = ('Evaluate if the message is a question. '
-                       'If not, prompt the user in a friendly manner to ask a question '
-                       'regarding the Grade 6 Math Scope and Sequence Outline.'
+    system_constant = ('Prompt the user in a friendly manner to ask a question '
+                       'regarding the Grade 6 Math Scope and Sequence Outline. '
+                       'Do not outwardly specify whether the given message is a question.'
                        'Act as a helpful teaching assistant that will give detailed '
                        'information on the question based on the uploaded file.')
 
