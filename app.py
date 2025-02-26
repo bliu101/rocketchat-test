@@ -37,8 +37,7 @@ def main():
     print(f"Message from {user} : {message}")
 
 
-    query = 
-            f'Generate a new resume based on user inputted information, work experience, leadership experience, schooling'\
+    query = f'Generate a new resume based on user inputted information, work experience, leadership experience, schooling'\
             f'and tailor it based on the following user input delimited in triple astriks. ***{message}***'\
             f'If the user input is not related to a career, job industry, or description inform the user in a friendly manner '\
             f'that you can edit the given resume to fit the given job description. '
