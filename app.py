@@ -108,11 +108,11 @@ def agent_critique(query, sess_id):
         system = system,
         query = query,
         temperature=0.3,
-        lastk=100,
+        lastk=10,
         session_id=sess_id,
         rag_usage = True,
         rag_threshold='0.2',
-        rag_k=4)
+        rag_k=10)
 
     try:
         return response['response']
@@ -132,11 +132,11 @@ def agent_builder(query, sess_id):
         system = system,
         query = query,
         temperature=0.3,
-        lastk=100,
+        lastk=10,
         session_id=sess_id,
         rag_usage = True, 
         rag_threshold='0.2',
-        rag_k=4)
+        rag_k=10)
 
     try:
         return response['response']
