@@ -79,6 +79,7 @@ def main():
 
         i+=1
     
+    print('QUERY IS HEREEEE')
     print(query)
     return query
     # response_text = query['resume']
@@ -105,7 +106,7 @@ def agent_critique(query, sess_id):
         system = system,
         query = query,
         temperature=0.3,
-        lastk=10,
+        lastk=100,
         session_id=sess_id,
         rag_usage = True,
         rag_threshold='0.2',
@@ -128,7 +129,7 @@ def agent_builder(query, sess_id):
         system = system,
         query = query,
         temperature=0.3,
-        lastk=10,
+        lastk=100,
         session_id=sess_id,
         rag_usage = True, 
         rag_threshold='0.2',
