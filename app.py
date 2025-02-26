@@ -94,7 +94,9 @@ def agent_critique(query):
         temperature=0.3,
         lastk=10,
         session_id=SESSION_ID,
-        rag_usage = True)
+        rag_usage = True,
+        rag_threshold='0.2',
+        rag_k=4)
 
     try:
         return response['response']
@@ -115,7 +117,9 @@ def agent_builder(query):
         temperature=0.3,
         lastk=10,
         session_id=SESSION_ID,
-        rag_usage = True)
+        rag_usage = True, 
+        rag_threshold='0.2',
+        rag_k=4)
 
     try:
         return response['response']
