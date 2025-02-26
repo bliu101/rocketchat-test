@@ -28,7 +28,7 @@ def agent_critque(query):
     suggestions for simplifying, improving, and optimizing the resume..
     
     ### Option 2 ###
-    2. If you don't see any issues with the resume, respond with "No changes needed".
+    2. If you don't see any issues with the resume, respond with "$$EXIT$$" and nothing else.
     """
 
     response = generate(model = '4o-mini',
