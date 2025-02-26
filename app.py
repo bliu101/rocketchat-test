@@ -17,50 +17,52 @@ def hello_world():
 
 @app.route('/query', methods=['POST'])
 def main():
-    try:
-        data = request.get_json() 
+    data = request.get_json() 
 
-        # Extract relevant information
-        user = data.get("user_name", "Unknown")
-        message = data.get("text", "")
+    # Extract relevant information
+    user = data.get("user_name", "Unknown")
+    message = data.get("text", "")
 
-        print(data)
+    print(data)
 
-        # Ignore bot messages
-        if data.get("bot") or not message:
-            return jsonify({"status": "ignored"})
+    # Ignore bot messages
+    if data.get("bot") or not message:
+        return jsonify({"status": "ignored"})
 
-        print(f"Message from {user} : {message}")
+    print(f"Message from {user} : {message}")
 
-        response_pdf = pdf_upload(
-            path = 'resume.pdf',
-            session_id = SESSION_ID,
-            strategy = 'smart'
-        )
+    response_pdf = pdf_upload(
+        path = 'resume.pdf',
+        session_id = SESSION_ID,
+        strategy = 'smart'
+    )
 
-        query = f'Generate a new resume based on the information, work experience, leadership experience, schooling'\
-                f'and tailor it based on the following user input delimited in triple astriks. ***{message}***'\
-                f'If the user input is not related to a career, job industry, or description inform the user in a friendly manner '\
-                f'that you can edit the given resume to fit the given job description. '
+    query = f'Generate a new resume based on the information, work experience, leadership experience, schooling'\
+            f'and tailor it based on the following user input delimited in triple astriks. ***{message}***'\
+            f'If the user input is not related to a career, job industry, or description inform the user in a friendly manner '\
+            f'that you can edit the given resume to fit the given job description. '
 
-        # system_constant = ('If the user message is not related to the AP/IB prematricualtion credits at Tufts, '
-        #                    'prompt the user in a friendly manner to list their AP/IB test and their school '
-        #                    'Arts and Sciences or Engineering so that you can analyze what pre-matriculation credits '
-        #                    'they have earned based on the uploaded file '
-        #                    'Answer related questions or lists of courses properly based on the uploaded file by '
-        #                    'breaking down each test score and the number of credits recieved for it '
-        #                    'Ensure that the college is specified: Arts and Sciences or Engineering before giving an answer'
-        #                    'Act as a welcoming and helpful guide for incoming freshmen who may be confused.')
+    # system_constant = ('If the user message is not related to the AP/IB prematricualtion credits at Tufts, '
+    #                    'prompt the user in a friendly manner to list their AP/IB test and their school '
+    #                    'Arts and Sciences or Engineering so that you can analyze what pre-matriculation credits '
+    #                    'they have earned based on the uploaded file '
+    #                    'Answer related questions or lists of courses properly based on the uploaded file by '
+    #                    'breaking down each test score and the number of credits recieved for it '
+    #                    'Ensure that the college is specified: Arts and Sciences or Engineering before giving an answer'
+    #                    'Act as a welcoming and helpful guide for incoming freshmen who may be confused.')
 
-        agents = [agent_builder, agent_critique]
+    agents = [agent_builder, agent_critique]
 
-        max_iterations = 1
-        i = 0
-        while i < max_iterations:
-            active_agent = agents[i % 2]
-            query_result = active_agent(query)
+    max_iterations = 1
 
-            if not query_result:  # Ensure valid return value
+    i=0
+    while i < max_iterations:
+
+        # flip between agent coder and QA
+        active_agent = agents[i%2]
+        query = active_agent(query)
+
+        if not query_result:  # Ensure valid return value
                 raise ValueError(f"Agent function returned None: {active_agent.__name__}")
 
             query = query_result
@@ -69,11 +71,7 @@ def main():
                 break
 
             i += 1
-
-        return jsonify({"text": query})
-    except Exception as e:
-        print(f"Error in /query endpoint: {e}")
-        return jsonify({"error": "Internal Server Error", "details": str(e)}), 500
+    return jsonify({"text": query})
 
 def agent_critique(query):
     system = """
@@ -99,20 +97,11 @@ def agent_critique(query):
         rag_usage = False)
 
     try:
-        if response and "response" in response:
-            return response['response']
-        else:
-            raise ValueError("agent_critique received an invalid response from generate()")
+        return response['response']
     except Exception as e:
-        print(f"Error in agent_critique: {e}")
-        return "Error processing critique request."
-
-    # try:
-    #     return response['response']
-    # except Exception as e:
-    #     print(f"Error occured with parsing output: {response}")
-    #     raise e
-    # return 
+        print(f"Error occured with parsing output: {response}")
+        raise e
+    return 
 
 def agent_builder(query):
 
@@ -128,21 +117,13 @@ def agent_builder(query):
         session_id=SESSION_ID,
         rag_usage = False)
 
-    # try:
-    #     return response['response']
-    # except Exception as e:
-    #     print(f"Error occured with parsing output: {response}")
-    #     raise e
-
-    # return
-     try:
-        if response and "response" in response:
-            return response['response']
-        else:
-            raise ValueError("agent_builder received an invalid response from generate()")
+    try:
+        return response['response']
     except Exception as e:
-        print(f"Error in agent_builder: {e}")
-        return "Error processing resume request."
+        print(f"Error occured with parsing output: {response}")
+        raise e
+
+    return
 
 # @app.route('/upload_pdf', methods=['POST'])
 # def upload_pdf():
