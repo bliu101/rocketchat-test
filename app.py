@@ -8,11 +8,6 @@ from flask import Flask, request, jsonify
 from llmproxy import generate, pdf_upload
 import uuid
 
-def get_session_id(data):
-    user = data.get("user_name", "Unknown")
-    return f"bridgette-agent-{user}-{uuid.uuid4().hex[:8]}"  # Example: 'john-3fa85f'
-
-
 app = Flask(__name__)
 
 SESSION_ID = 'bridgette-agent'
@@ -41,16 +36,9 @@ def main():
 
     print(f"Message from {user} : {message}")
 
-    response_pdf = pdf_upload(
-        path = 'resume.pdf',
-        session_id = sess_id,
-        strategy = 'smart'
-    )
 
-    print(response_pdf)
-
-    query = f'Use the uploaded PDF associated with session_id {sess_id}. '\
-            f'Generate a new resume based on uploaded pdf information, work experience, leadership experience, schooling'\
+    query = 
+            f'Generate a new resume based on user inputted information, work experience, leadership experience, schooling'\
             f'and tailor it based on the following user input delimited in triple astriks. ***{message}***'\
             f'If the user input is not related to a career, job industry, or description inform the user in a friendly manner '\
             f'that you can edit the given resume to fit the given job description. '
@@ -111,9 +99,7 @@ def agent_critique(query, sess_id):
         temperature=0.3,
         lastk=10,
         session_id=sess_id,
-        rag_usage = True,
-        rag_threshold='0.2',
-        rag_k=10)
+    )
 
     try:
         return response['response']
@@ -135,9 +121,7 @@ def agent_builder(query, sess_id):
         temperature=0.3,
         lastk=10,
         session_id=sess_id,
-        rag_usage = True, 
-        rag_threshold='0.2',
-        rag_k=10)
+    )
 
     try:
         return response['response']
