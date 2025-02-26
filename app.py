@@ -102,7 +102,7 @@ def main():
     #                    'Ensure that the college is specified: Arts and Sciences or Engineering before giving an answer'
     #                    'Act as a welcoming and helpful guide for incoming freshmen who may be confused.')
 
-    agents = [agent_builder, agent_crique]
+    agents = [agent_builder, agent_critque]
 
     max_iterations = 1
 
@@ -111,8 +111,6 @@ def main():
 
         # flip between agent coder and QA
         active_agent = agents[i%2]
-
-
         query = active_agent(query)
 
         if query == "$$EXIT$$":
