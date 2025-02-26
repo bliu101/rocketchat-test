@@ -29,21 +29,49 @@ def main():
 
     print(f"Message from {user} : {message}")
 
-    # Generate a response using LLMProxy
-    response = generate(
-        model='4o-mini',
-        system='answer my question and add keywords',
-        query= message,
-        temperature=0.0,
-        lastk=0,
-        session_id='GenericSession'
+    response_pdf = pdf_upload(
+        path = 'prematriculation_credits.pdf',
+        session_id = 'bridgette-rag-test',
+        strategy = 'smart'
     )
 
-    response_text = response['response']
-    
-    # Send response back
-    print(response_text)
+    query = f'Given this message delimited in triple astriks, reply by giving the number of credits for each listed class, '\
+            f'based on the uploaded file. '\
+            # f'Answer the given question or command delimited in triple astriks. First, give a straightforward answer based on the file,' \
+            # f'and then synthesize to give possible solutions and idea brainstorming.'\
+            f'***{message}***'
 
+    system_constant = ('If the user message is not related to the AP/IB prematricualtion credits at Tufts, '
+                        'prompt the user in a friendly manner to list their AP/IB test and their school '
+                       'Arts and Sciences or Engineering so that you can analyze what pre-matriculation credits '
+                       'they have earned based on the uploaded file '
+                       'Answer related questions or lists of courses properly based on the uploaded file by '
+                       'breaking down each test score and the number of credits recieved for it '
+                       'Ensure that the college is specified: Arts and Sciences or Engineering before giving an answer'
+                       'Act as a welcoming and helpful guide for incoming freshmen who may be confused.')
+
+
+
+    print(f'QUERY::: {query}\n')
+    
+    response = generate(
+        model='4o-mini',
+        system=system_constant,
+        query=query,
+        temperature=0.0,
+        lastk=0,
+        session_id='bridgette-rag-test',
+        rag_usage=True,
+        rag_threshold='0.2',
+        rag_k=4
+    )
+    
+    response_text = response['response']
+    print(response_text)
+    # print(json.dumps(response, indent=4, ensure_ascii=False))
+
+    # session["unit_num"] = None
+    # session["num_q"] = None
     return jsonify({"text": response_text})
 
 # @app.route('/upload_pdf', methods=['POST'])
@@ -124,7 +152,7 @@ def generate_quiz():
     #                    'give the key. In the key explain each answer like a helpful tutor, assuming no previous knowledge.')
     query = f'If the message delimited in triple astriks is not a question or command, '\
             f'ask the chatter to ask a question regarding the Grade 6 Math Scope and Sequence Outline. '\
-            f'Answer the given question delimited in triple astriks. First, give a straightforward answer based on the file,' \
+            f'Answer the given question or command delimited in triple astriks. First, give a straightforward answer based on the file,' \
             f'and then synthesize to give possible solutions and idea brainstorming.'\
             f'This is the message: ***{message}***'
 
