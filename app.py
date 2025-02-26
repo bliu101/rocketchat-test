@@ -37,7 +37,7 @@ def main():
         strategy = 'smart'
     )
 
-    query = f'Generate a new resume based on the information, work experience, leadership experience, schooling'\
+    query = f'Generate a new resume based on uploaded pdf information, work experience, leadership experience, schooling'\
             f'and tailor it based on the following user input delimited in triple astriks. ***{message}***'\
             f'If the user input is not related to a career, job industry, or description inform the user in a friendly manner '\
             f'that you can edit the given resume to fit the given job description. '
@@ -68,12 +68,9 @@ def main():
         i+=1
     
     return query
-    # response_text = response['response']
+    response_text = response['resume']
     # print(response_text)
-    # # print(json.dumps(response, indent=4, ensure_ascii=False))
 
-    # # session["unit_num"] = None
-    # # session["num_q"] = None
     # return jsonify({"text": response_text})
 
 def agent_critique(query):
@@ -97,7 +94,7 @@ def agent_critique(query):
         temperature=0.3,
         lastk=10,
         session_id=SESSION_ID,
-        rag_usage = False)
+        rag_usage = True)
 
     try:
         return response['response']
@@ -118,7 +115,7 @@ def agent_builder(query):
         temperature=0.3,
         lastk=10,
         session_id=SESSION_ID,
-        rag_usage = False)
+        rag_usage = True)
 
     try:
         return response['response']
