@@ -79,11 +79,11 @@ def main():
 
         i+=1
     
-    return query
-    response_text = response['resume']
-    # print(response_text)
+    # return query
+    response_text = query['resume']
+    print(response_text)
 
-    # return jsonify({"text": response_text})
+    return jsonify({"text": response_text})
 
 def agent_critique(query, sess_id):
     system = """
