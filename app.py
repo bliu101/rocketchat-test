@@ -49,7 +49,8 @@ def main():
 
     print(response_pdf)
 
-    query = f'Generate a new resume based on uploaded pdf information, work experience, leadership experience, schooling'\
+    query = f'Use the uploaded PDF associated with session_id {sess_id}. '\
+            f'Generate a new resume based on uploaded pdf information, work experience, leadership experience, schooling'\
             f'and tailor it based on the following user input delimited in triple astriks. ***{message}***'\
             f'If the user input is not related to a career, job industry, or description inform the user in a friendly manner '\
             f'that you can edit the given resume to fit the given job description. '
