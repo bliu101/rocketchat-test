@@ -62,16 +62,13 @@ def main():
         active_agent = agents[i%2]
         query = active_agent(query)
 
-        if not query_result:  # Ensure valid return value
-                raise ValueError(f"Agent function returned None: {active_agent.__name__}")
+        if query == "$$EXIT$$":
+            break
 
-            query = query_result
+        i+=1
 
-            if query == "$$EXIT$$":
-                break
 
-            i += 1
-    return jsonify({"text": query})
+
 
 def agent_critique(query):
     system = """
