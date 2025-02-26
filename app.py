@@ -55,23 +55,21 @@ def main():
         agents = [agent_builder, agent_critique]
 
         max_iterations = 1
-
-        i=0
+        i = 0
         while i < max_iterations:
-
-            # flip between agent coder and QA
-            active_agent = agents[i%2]
-            query = active_agent(query)
+            active_agent = agents[i % 2]
+            query_result = active_agent(query)
 
             if not query_result:  # Ensure valid return value
-                    raise ValueError(f"Agent function returned None: {active_agent.__name__}")
+                raise ValueError(f"Agent function returned None: {active_agent.__name__}")
 
-                query = query_result
+            query = query_result
 
-                if query == "$$EXIT$$":
-                    break
+            if query == "$$EXIT$$":
+                break
 
-                i += 1
+            i += 1
+
         return jsonify({"text": query})
     except Exception as e:
         print(f"Error in /query endpoint: {e}")
