@@ -82,7 +82,7 @@ def main():
     print('QUERY IS HEREEEE')
     print(query)
     # return query
-    return jsonify({"text": response_text})
+    return jsonify({"text": query})
     # response_text = query['resume']
     # print(response_text)
 
