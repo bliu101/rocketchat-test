@@ -16,7 +16,7 @@ def hello_world():
    return jsonify({"text":'Hello from Koyeb - you reached the main page!'})
 
 @app.route('/query', methods=['POST'])
-def agent_critque(query):
+def agent_critique(query):
     system = """
     You are an AI agent designed critque a resume written by a college student or new graduate.
     The goal is to create a resume that will standout and hit relevant industry words and
@@ -102,7 +102,7 @@ def main():
     #                    'Ensure that the college is specified: Arts and Sciences or Engineering before giving an answer'
     #                    'Act as a welcoming and helpful guide for incoming freshmen who may be confused.')
 
-    agents = [agent_builder, agent_critque]
+    agents = [agent_builder, agent_critique]
 
     max_iterations = 1
 
