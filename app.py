@@ -11,7 +11,7 @@ import uuid
 def get_session_id(data):
     """Generate a unique session ID per user."""
     user = data.get("user_name", "Unknown")
-    return f"{user}-{uuid.uuid4().hex[:8]}"  # Example: 'john-3fa85f'
+    return f"bridgette-agent-{user}-{uuid.uuid4().hex[:8]}"  # Example: 'john-3fa85f'
 
 
 app = Flask(__name__)
@@ -30,7 +30,7 @@ def main():
     sess_id = get_session_id(data)
     user = data.get("user_name", "Unknown")
     message = data.get("text", "")
-
+    print('SESS_ID+++++++:'+ sess_id)
     print(data)
 
     # Ignore bot messages
