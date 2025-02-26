@@ -101,11 +101,20 @@ def agent_critique(query):
         rag_usage = False)
 
     try:
-        return response['response']
+        if response and "response" in response:
+            return response['response']
+        else:
+            raise ValueError("agent_critique received an invalid response from generate()")
     except Exception as e:
-        print(f"Error occured with parsing output: {response}")
-        raise e
-    return 
+        print(f"Error in agent_critique: {e}")
+        return "Error processing critique request."
+
+    # try:
+    #     return response['response']
+    # except Exception as e:
+    #     print(f"Error occured with parsing output: {response}")
+    #     raise e
+    # return 
 
 def agent_builder(query):
 
@@ -121,13 +130,21 @@ def agent_builder(query):
         session_id=SESSION_ID,
         rag_usage = False)
 
-    try:
-        return response['response']
-    except Exception as e:
-        print(f"Error occured with parsing output: {response}")
-        raise e
+    # try:
+    #     return response['response']
+    # except Exception as e:
+    #     print(f"Error occured with parsing output: {response}")
+    #     raise e
 
-    return
+    # return
+     try:
+        if response and "response" in response:
+            return response['response']
+        else:
+            raise ValueError("agent_builder received an invalid response from generate()")
+    except Exception as e:
+        print(f"Error in agent_builder: {e}")
+        return "Error processing resume request."
 
 # @app.route('/upload_pdf', methods=['POST'])
 # def upload_pdf():
