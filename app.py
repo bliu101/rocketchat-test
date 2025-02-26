@@ -42,28 +42,18 @@ def main():
             f'If the user input is not related to a career, job industry, or description inform the user in a friendly manner '\
             f'that you can edit the given resume to fit the given job description. '
 
-    # system_constant = ('If the user message is not related to the AP/IB prematricualtion credits at Tufts, '
-    #                    'prompt the user in a friendly manner to list their AP/IB test and their school '
-    #                    'Arts and Sciences or Engineering so that you can analyze what pre-matriculation credits '
-    #                    'they have earned based on the uploaded file '
-    #                    'Answer related questions or lists of courses properly based on the uploaded file by '
-    #                    'breaking down each test score and the number of credits recieved for it '
-    #                    'Ensure that the college is specified: Arts and Sciences or Engineering before giving an answer'
-    #                    'Act as a welcoming and helpful guide for incoming freshmen who may be confused.')
-
     agents = [agent_builder, agent_critique]
-
     max_iterations = 5
-
     i=0
+    last_valid_resume = None
     while i < max_iterations:
-
-        # flip between agent coder and QA
         active_agent = agents[i%2]
         query = active_agent(query, sess_id)
 
         if query == "$$EXIT$$":
-            break
+            return jsonify({"text": last_valid_resume if last_valid_resume else "An error occurred, but no previous resume was available."})
+        else:
+            last_valid_resume = query  # Update last valid resume
 
         i+=1
     
