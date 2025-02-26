@@ -33,9 +33,11 @@ def main():
 
     response_pdf = pdf_upload(
         path = 'resume.pdf',
-        session_id = SESSION_ID,
+        session_id = 'bridgette-agent',
         strategy = 'smart'
     )
+
+    print(response_pdf)
 
     query = f'Generate a new resume based on uploaded pdf information, work experience, leadership experience, schooling'\
             f'and tailor it based on the following user input delimited in triple astriks. ***{message}***'\
@@ -93,7 +95,7 @@ def agent_critique(query):
         query = query,
         temperature=0.3,
         lastk=10,
-        session_id=SESSION_ID,
+        session_id='bridgette-agent',
         rag_usage = True,
         rag_threshold='0.2',
         rag_k=4)
@@ -116,7 +118,7 @@ def agent_builder(query):
         query = query,
         temperature=0.3,
         lastk=10,
-        session_id=SESSION_ID,
+        session_id='bridgette-agent',
         rag_usage = True, 
         rag_threshold='0.2',
         rag_k=4)
