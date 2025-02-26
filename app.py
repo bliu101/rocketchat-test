@@ -81,13 +81,15 @@ def main():
     
     print('QUERY IS HEREEEE')
     print(query)
-    return query
+    # return query
+    return jsonify({"text": response_text})
     # response_text = query['resume']
     # print(response_text)
 
     # return jsonify({"text": response_text})
 
 def agent_critique(query, sess_id):
+    print('IN CRITIQUE')
     system = """
     You are an AI agent designed critque a resume written by a college student or new graduate.
     The goal is to create a resume that will standout and hit relevant industry words and
@@ -120,7 +122,7 @@ def agent_critique(query, sess_id):
     return 
 
 def agent_builder(query, sess_id):
-
+    print('IN BUILDER')
     system = """
     You are an AI agent designed to make a resume.
     """
