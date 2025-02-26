@@ -63,11 +63,14 @@ def main():
         query = active_agent(query)
 
         if query == "$$EXIT$$":
+            response = {"status": "completed", "message": "No changes needed for the resume."}
             break
+        else:
+            response = {"status": "success", "resume": query}
 
         i+=1
 
-
+    return jsonify(response)
 
 
 def agent_critique(query):
