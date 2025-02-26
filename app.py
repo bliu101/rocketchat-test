@@ -123,6 +123,7 @@ def agent_critique(query, sess_id):
 
 def agent_builder(query, sess_id):
     print('IN BUILDER')
+    print(sess_id)
     system = """
     You are an AI agent designed to make a resume.
     """
