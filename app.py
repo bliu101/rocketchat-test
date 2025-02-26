@@ -30,7 +30,8 @@ def main():
     sess_id = get_session_id(data)
     user = data.get("user_name", "Unknown")
     message = data.get("text", "")
-    print('SESS_ID+++++++:'+ sess_id)
+    print('SESS_ID+++++++:')
+    print(sess_id)
     print(data)
 
     # Ignore bot messages
