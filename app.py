@@ -63,15 +63,18 @@ def main():
         query = active_agent(query)
 
         if query == "$$EXIT$$":
-            response = {"status": "completed", "message": "No changes needed for the resume."}
             break
-        else:
-            response = {"status": "success", "resume": query}
 
         i+=1
+    
+    return query
+    # response_text = response['response']
+    # print(response_text)
+    # # print(json.dumps(response, indent=4, ensure_ascii=False))
 
-    return jsonify(response)
-
+    # # session["unit_num"] = None
+    # # session["num_q"] = None
+    # return jsonify({"text": response_text})
 
 def agent_critique(query):
     system = """
