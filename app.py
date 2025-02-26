@@ -43,7 +43,7 @@ def main():
             f'that you can edit the given resume to fit the given job description. '
 
     agents = [agent_builder, agent_critique]
-    max_iterations = 5
+    max_iterations = 3
     i=0
     last_valid_resume = None
     while i < max_iterations:
