@@ -91,6 +91,7 @@ def agent_critique(query, sess_id):
     )
 
     try:
+        print(response['response'])
         return response['response']
     except Exception as e:
         print(f"Error occured with parsing output: {response}")
@@ -113,6 +114,7 @@ def agent_builder(query, sess_id):
     )
 
     try:
+        print(response['response'])
         return response['response']
     except Exception as e:
         print(f"Error occured with parsing output: {response}")
