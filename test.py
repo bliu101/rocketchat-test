@@ -1,6 +1,6 @@
 import requests
 
-response_main = requests.get("https://jolly-selia-tuftsuni-5e8bcc9c.koyeb.app//")
+response_main = requests.get("https://jolly-selia-tuftsuni-5e8bcc9c.koyeb.app/")
 print('Web Application Response:\n', response_main.text, '\n\n')
 
 

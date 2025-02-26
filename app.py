@@ -37,8 +37,6 @@ def main():
 
     query = f'Given this message delimited in triple astriks, reply by giving the number of credits for each listed class, '\
             f'based on the uploaded file. '\
-            # f'Answer the given question or command delimited in triple astriks. First, give a straightforward answer based on the file,' \
-            # f'and then synthesize to give possible solutions and idea brainstorming.'\
             f'***{message}***'
 
     system_constant = ('If the user message is not related to the AP/IB prematricualtion credits at Tufts, '
@@ -68,10 +66,7 @@ def main():
     
     response_text = response['response']
     print(response_text)
-    # print(json.dumps(response, indent=4, ensure_ascii=False))
 
-    # session["unit_num"] = None
-    # session["num_q"] = None
     return jsonify({"text": response_text})
 
 # @app.route('/upload_pdf', methods=['POST'])
