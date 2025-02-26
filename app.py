@@ -6,6 +6,13 @@ import requests
 import json
 from flask import Flask, request, jsonify
 from llmproxy import generate, pdf_upload
+import uuid
+
+def get_session_id(data):
+    """Generate a unique session ID per user."""
+    user = data.get("user_name", "Unknown")
+    return f"{user}-{uuid.uuid4().hex[:8]}"  # Example: 'john-3fa85f'
+
 
 app = Flask(__name__)
 
@@ -20,6 +27,7 @@ def main():
     data = request.get_json() 
 
     # Extract relevant information
+    sess_id = get_session_id(data)
     user = data.get("user_name", "Unknown")
     message = data.get("text", "")
 
@@ -33,7 +41,7 @@ def main():
 
     response_pdf = pdf_upload(
         path = 'resume.pdf',
-        session_id = 'bridgette-agent',
+        session_id = sess_id,
         strategy = 'smart'
     )
 
@@ -62,7 +70,7 @@ def main():
 
         # flip between agent coder and QA
         active_agent = agents[i%2]
-        query = active_agent(query)
+        query = active_agent(query, sess_id)
 
         if query == "$$EXIT$$":
             break
@@ -75,7 +83,7 @@ def main():
 
     # return jsonify({"text": response_text})
 
-def agent_critique(query):
+def agent_critique(query, sess_id):
     system = """
     You are an AI agent designed critque a resume written by a college student or new graduate.
     The goal is to create a resume that will standout and hit relevant industry words and
@@ -95,7 +103,7 @@ def agent_critique(query):
         query = query,
         temperature=0.3,
         lastk=10,
-        session_id='bridgette-agent',
+        session_id=sess_id,
         rag_usage = True,
         rag_threshold='0.2',
         rag_k=4)
@@ -107,7 +115,7 @@ def agent_critique(query):
         raise e
     return 
 
-def agent_builder(query):
+def agent_builder(query, sess_id):
 
     system = """
     You are an AI agent designed to make a resume.
@@ -118,7 +126,7 @@ def agent_builder(query):
         query = query,
         temperature=0.3,
         lastk=10,
-        session_id='bridgette-agent',
+        session_id=sess_id,
         rag_usage = True, 
         rag_threshold='0.2',
         rag_k=4)
