@@ -36,8 +36,7 @@ def main():
     )
 
     query = f'Given this message delimited in triple astriks, reply by giving the number of credits for each listed class, '\
-            f'based on the uploaded file. '\
-            f'***{message}***'
+            f'based on the uploaded file. ***{message}***'\
 
     system_constant = ('If the user message is not related to the AP/IB prematricualtion credits at Tufts, '
                         'prompt the user in a friendly manner to list their AP/IB test and their school '
