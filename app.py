@@ -8,6 +8,11 @@ from flask import Flask, request, jsonify
 from llmproxy import generate, pdf_upload
 import uuid
 
+def get_session_id(data):
+    user = data.get("user_name", "Unknown")
+    return f"bridgette-agent-{user}-{uuid.uuid4().hex[:8]}"  # Example: 'john-3fa85f'
+
+
 app = Flask(__name__)
 
 SESSION_ID = 'bridgette-agent'
@@ -24,7 +29,8 @@ def main():
     
     user = data.get("user_name", "Unknown")
     message = data.get("text", "")
-    sess_id = "bridgette-agent-{user}-{uuid.uuid4().hex[:8]}"
+
+    sess_id = f"bridgette-agent-{user}-{uuid.uuid4().hex[:8]}"
     print('SESS_ID+++++++:')
     print(sess_id)
     print(data)
