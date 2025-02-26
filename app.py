@@ -53,7 +53,7 @@ def main():
 
     agents = [agent_builder, agent_critique]
 
-    max_iterations = 1
+    max_iterations = 5
 
     i=0
     while i < max_iterations:
