@@ -16,57 +16,6 @@ def hello_world():
    return jsonify({"text":'Hello from Koyeb - you reached the main page!'})
 
 @app.route('/query', methods=['POST'])
-def agent_critique(query):
-    system = """
-    You are an AI agent designed critque a resume written by a college student or new graduate.
-    The goal is to create a resume that will standout and hit relevant industry words and
-    sythesize on the experiences listed on the given resume.
-
-    You have two options:
-    ### Option 1 ###
-    If you see any lacking parts, respond with pointing out any lacking information or unneccessary information,
-    suggestions for simplifying, improving, and optimizing the resume..
-    
-    ### Option 2 ###
-    2. If you don't see any issues with the resume, respond with "$$EXIT$$" and nothing else.
-    """
-
-    response = generate(model = '4o-mini',
-        system = system,
-        query = query,
-        temperature=0.3,
-        lastk=10,
-        session_id=SESSION_ID,
-        rag_usage = False)
-
-    try:
-        return response['response']
-    except Exception as e:
-        print(f"Error occured with parsing output: {response}")
-        raise e
-    return 
-
-def agent_builder(query):
-
-    system = """
-    You are an AI agent designed to make a resume.
-    """
-
-    response = generate(model = '4o-mini',
-        system = system,
-        query = query,
-        temperature=0.3,
-        lastk=10,
-        session_id=SESSION_ID,
-        rag_usage = False)
-
-    try:
-        return response['response']
-    except Exception as e:
-        print(f"Error occured with parsing output: {response}")
-        raise e
-
-    return
 def main():
     data = request.get_json() 
 
@@ -118,25 +67,57 @@ def main():
 
         i+=1
 
+def agent_critique(query):
+    system = """
+    You are an AI agent designed critque a resume written by a college student or new graduate.
+    The goal is to create a resume that will standout and hit relevant industry words and
+    sythesize on the experiences listed on the given resume.
 
-    # print(f'QUERY::: {query}\n')
+    You have two options:
+    ### Option 1 ###
+    If you see any lacking parts, respond with pointing out any lacking information or unneccessary information,
+    suggestions for simplifying, improving, and optimizing the resume..
     
-    # response = generate(
-    #     model='4o-mini',
-    #     system=system_constant,
-    #     query=query,
-    #     temperature=0.0,
-    #     lastk=0,
-    #     session_id='bridgette-rag-test',
-    #     rag_usage=True,
-    #     rag_threshold='0.2',
-    #     rag_k=4
-    # )
-    
-    # response_text = response['response']
-    # print(response_text)
+    ### Option 2 ###
+    2. If you don't see any issues with the resume, respond with "$$EXIT$$" and nothing else.
+    """
 
-    # return jsonify({"text": response_text})
+    response = generate(model = '4o-mini',
+        system = system,
+        query = query,
+        temperature=0.3,
+        lastk=10,
+        session_id=SESSION_ID,
+        rag_usage = False)
+
+    try:
+        return response['response']
+    except Exception as e:
+        print(f"Error occured with parsing output: {response}")
+        raise e
+    return 
+
+def agent_builder(query):
+
+    system = """
+    You are an AI agent designed to make a resume.
+    """
+
+    response = generate(model = '4o-mini',
+        system = system,
+        query = query,
+        temperature=0.3,
+        lastk=10,
+        session_id=SESSION_ID,
+        rag_usage = False)
+
+    try:
+        return response['response']
+    except Exception as e:
+        print(f"Error occured with parsing output: {response}")
+        raise e
+
+    return
 
 # @app.route('/upload_pdf', methods=['POST'])
 # def upload_pdf():
