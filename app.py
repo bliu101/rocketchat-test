@@ -49,7 +49,6 @@ def main():
     while i < max_iterations:
         active_agent = agents[i%2]
         query = active_agent(query, sess_id)
-        last_valid_resume = query
         if query == "$$EXIT$$":
             print('IN EXIT')
             print(last_valid_resume)
