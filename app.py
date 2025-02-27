@@ -49,7 +49,7 @@ def main():
     while i < max_iterations:
         active_agent = agents[i%2]
         query = active_agent(query, sess_id)
-
+        last_valid_resume = query
         if query == "$$EXIT$$":
             return jsonify({"text": last_valid_resume if last_valid_resume else "An error occurred, but no previous resume was available."})
         else:
