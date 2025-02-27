@@ -51,6 +51,8 @@ def main():
         query = active_agent(query, sess_id)
         last_valid_resume = query
         if query == "$$EXIT$$":
+            print('IN EXIT')
+            print(last_valid_resume)
             return jsonify({"text": last_valid_resume if last_valid_resume else "An error occurred, but no previous resume was available."})
         else:
             last_valid_resume = query  # Update last valid resume
